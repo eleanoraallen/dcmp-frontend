@@ -1,0 +1,27 @@
+#editMapContainer {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#contentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#editCreator {
+  display: flex;
+  justify-content: center;
+}
+
+#editPin {
+  display: flex;
+  justify-content: center;
+}
+
+#saveMap {
+  display: flex;
+  justify-content: center;
+}

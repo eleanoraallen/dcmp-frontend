@@ -1,0 +1,60 @@
+body {
+    font-family: 'IngramMono-Regular', Helvetica, Arial, Sans-Serif;
+    color: rgb(77, 77, 77);
+    margin: 0;
+    background-color: white;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#mapImageContainer {
+  position: relative;
+  width: 1000px;
+}
+
+#mapImage {
+  width: 1000px;
+}
+
+.mapPin {
+  position: absolute;
+  display: flex;
+}
+
+.mapPin:hover > .mapPinMarker {
+  background-color: rgb(235, 86, 255);
+  
+}
+
+.mapPin:hover > .mapPinName {
+  display: flex;
+}
+
+.mapPinMarker {
+  background-color: rgb(29, 191, 255);
+  border: none;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+}
+
+.mapPinName {
+  display: none;
+  font-size: 14pt;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: rgba(255, 255, 255, 0.836);
+}
+
+.invisible {
+  display: none;
+}

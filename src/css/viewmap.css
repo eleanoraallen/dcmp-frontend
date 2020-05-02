@@ -1,0 +1,45 @@
+#viewMapContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.pinInfo {
+    display: flex;
+    flex-direction: column;
+    padding-top: 100px;
+    padding-left: 50px;
+    width: 500px;
+}
+
+.invisible {
+    display: none;
+}
+
+.pinName {
+    font-size: 18pt;
+}
+
+.pinCreator {
+    font-size: 9pt;
+}
+
+.pinDate {
+    font-size: 9pt;
+}
+
+.pinMapID {
+    padding-bottom: 20px;
+}
+
+#mapLink {
+    color: rgb(29, 191, 255);
+    font-size: 9pt;
+}
+
+#mapLink:hover {
+    color: rgb(235, 86, 255);
+}
+
+.pinDescription {
+}

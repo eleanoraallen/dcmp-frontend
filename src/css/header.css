@@ -1,0 +1,32 @@
+#headerContainer {
+  background-color: rgb(132, 188, 226);
+  text-align: center;
+  margin-bottom: 50px;
+  
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  color: white;
+}
+
+#headerTitle {
+  padding-top: 20px;
+  font-size: 24pt;
+  padding-bottom: 30px;
+}
+
+#headerLinks {
+  width: 100%;
+  font-size: 14pt;
+  padding-bottom: 20px;
+}
+.headerLink {
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
+.headerLink:hover {
+  text-decoration: underline;
+}
