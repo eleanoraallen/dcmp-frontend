@@ -1,0 +1,28 @@
+type Query {
+  "Given a map's id, returns that map"
+  map("The map's ID" id: ID): Map
+
+  "Get the list maps of a given size starting at a given page"
+  mapList(
+    "query object for more specific searches"
+    query: MapListQuery
+
+    "The number of maps to return (default 10)"
+    size: Int
+
+    "The index of the page to return (default 0)"
+    page: Int
+  ): [Map]
+}
+
+"Filter which can be applyed to mapList"
+input MapListQuery {
+  "name of the map"
+  mapName: String
+
+  "name of the creator of the map"
+  creatorName: String
+
+  "The date of the map's creaton"
+  date: String
+}
