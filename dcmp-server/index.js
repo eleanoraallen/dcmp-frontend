@@ -1,49 +1,105 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer} = require('apollo-server');
+const typeDefs = require('./graphql-schema');
+const mongoose = require('mongoose');
+const db = mongoose.connection;
+const Map = require('./mongo-schema/map');
+const Pin = require('./mongo-schema/pin');
 
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
-const typeDefs = gql`
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
 
-  # This "Book" type defines the queryable fields for every book in our data source.
-  type Book {
-    title: String
-    author: String
-  }
+// log errors
+db.on('error', console.error); 
 
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
-  type Query {
-    books: [Book]
-  }
-`;
+// bind a function to perform when the database has been opened
+db.once('open', function() {
+  // perform any queries here, more on this later
+  console.log("Connected to DB!");
+});
 
-const books = [
-    {
-      title: 'Harry Potter and the Chamber of Secrets',
-      author: 'J.K. Rowling',
-    },
-    {
-      title: 'Jurassic Park',
-      author: 'Michael Crichton',
-    },
-  ];
+// close connection on close
+process.on('SIGINT', function() {
+   mongoose.connection.close(function () {
+       console.log('DB connection closed by Node process ending');
+       process.exit(0);
+   });
+});
 
-// Resolvers define the technique for fetching the types defined in the
-// schema. This resolver retrieves books from the "books" array above.
+// well this doesn't feel very secure... I mean, it's not an admin account but still... Surely there must be a better way.
+const url = 'mongodb+srv://dcmpBackend:QAiONqqUeJP9maud@dcmp-dev-bgfgf.mongodb.net/test?retryWrites=true&w=majority';
+mongoose.connect(url, {useNewUrlParser: true});
+
+// resolvers
 const resolvers = {
   Query: {
-    books: () => books,
+    map(obj, args) {
+      return(
+        Map.findOne({ _id: args.id }).then(
+          result => {
+            try {
+              const m = {
+                id: result._id,
+                createdAt: result.createdAt,
+                mapName: result.mapName,
+                description: result.description,
+                creatorName: result.creatorName,
+              };
+              return m;
+            } catch(err) {
+              console.log(err);
+              return(null);
+            }
+          }
+        ));
+      },
   },
+  Mutation: {
+    addMap: (obj, args) => {
+      const m = new Map();
+      if (args.mapName !== undefined) {
+        m.mapName = args.mapName;
+      }
+      if (args.description !== undefined) {
+        m.description = args.description;
+      }
+      if (args.creatorName !== undefined) {
+        m.creatorName = args.creatorName;
+      }
+      return(
+        m.save().then(
+          result => {
+            try {
+              return result._id;
+            } catch(err) {
+              console.log(err);
+              return null;
+            }
+          }
+
+        )
+      );
+    }
+  }
 };
 
-// The ApolloServer constructor requires two parameters: your schema
-// definition and your set of resolvers.
+// create server
 const server = new ApolloServer({ typeDefs, resolvers });
 
-// The `listen` method launches a web server.
+// launche server.
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
+
+
+
+
+
+// mapList(query, size, page) {
+//   Map.find(function(err, data) {
+//     if (err) {
+//       console.log(err);
+//       console.log("dang");
+//     } else {
+//       console.log(data);
+//       return(data);
+//     }   
+//   });
+// },
