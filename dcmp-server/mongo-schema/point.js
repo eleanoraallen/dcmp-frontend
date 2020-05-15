@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
-const Pin = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-    },
+const Point = new mongoose.Schema({
     mapId: {
         type: String,
         required: true,
@@ -13,9 +9,12 @@ const Pin = new mongoose.Schema({
         type: String,
         required: true,
     },
-
-    coordinates: {
-        type: [{ type: Number }],
+    x: {
+        type: Number,
+        required: true,
+    },
+    y: {
+        type: Number,
         required: true,
     },
     description: {
@@ -32,4 +31,4 @@ const Pin = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Pin', Pin);
+module.exports = mongoose.model('Point', Point);

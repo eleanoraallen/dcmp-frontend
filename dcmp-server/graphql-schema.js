@@ -17,12 +17,20 @@ const typeDefs = gql`
 
     #Filter which can be applyed to mapList
     input MapListQuery {
-        #name of the map
+        #returns all maps with a 
+        id: ID
+        #returns all maps with a given map name
         mapName: String
-        #name of the creator of the map
+        #Returns all maps with a given creator name
         creatorName: String
-        #The date of the map's creaton
-        date: String
+        #Returns all maps created after the given date
+        startDate: String
+        #Returns all maps created before the given date
+        endDate: String
+        #search operation to preform w/ fields (default AND)
+        operation: Operation
+        # set true to retrieve a psuedo-random selection of map (note: overides all other params except size, may return duplicate maps)
+        random: Boolean
     }
 
      #A point on a map
@@ -33,8 +41,8 @@ const typeDefs = gql`
         mapId: ID!
         #The name of this point
         name: String!
-        #An array of ints of length 2 giving the [x, y] coordinates of the point
-        coordinates: [Int!]!
+        #the coordinates of the point
+        coordinates: Coordinates!
         #The description for this point
         description: String
         #The category of this point
@@ -47,12 +55,30 @@ const typeDefs = gql`
 
     #Filter which can be applyed pointList
     input PointListQuery {
+        # the ID of a point
+        id: ID
         #The ID of the point's map
         mapID: ID
+        # coordinates of the point
+        coordinates: [Int!]
+        # set to retrieve all points within this distance of a given set of cordinates exclusive
+        within: Int
         #name of the creator of the map
         creatorName: String
         #the category of the point
         category: Categry
+        #search operation to preform w/ fields (default AND)
+        operation: Operation
+        # set true to retrieve a psuedo-random selection of points (note: overides all other params except size, may return duplicate points)
+        random: Boolean
+    }
+
+    # stores the coordinates of a point
+    type Coordinates {
+        # the x coordinate of the point
+        x: Int!
+        # the y coordinate of the point
+        y: Int!
     }
 
     # Categry of points
@@ -66,11 +92,18 @@ const typeDefs = gql`
         OTHER
     }
 
+    # Search operations
+    enum Operation {
+        AND
+        OR
+        NOR
+    }
+
     type Query {
         #Given a map's id, returns that map
         map(id: ID!): Map
 
-        #Get the list maps of a given size starting at a given page
+        #Get the list maps of a given size starting at a given page conforming to a given filter
         mapList(
             #query object for more specific searches
             query: MapListQuery
@@ -83,7 +116,7 @@ const typeDefs = gql`
         #Given a points's id, returns that point
         point(id: ID!): Point
 
-        #Get the list maps of a given size starting at a given page
+        #Get the list points of a given size starting at a given page conforming to a given filter
         pointList(
             #query object for more specific searches
             query: PointListQuery
@@ -116,10 +149,11 @@ const typeDefs = gql`
             #The description for this point
             description: String
             #The category of this point
-            category: String
+            category: Categry
+            # text to describe the category if it isn't one of the enumerated categories
+            otherText: String
             #The creator of this point
             creatorName: String
-
         ): ID
     }
 `;
