@@ -1,0 +1,13 @@
+#footerContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#footer {
+    width: 100%;
+    height: 60px;
+    margin-top: 50px;
+    background-color: rgb(132, 188, 226);
+}

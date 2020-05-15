@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
+    padding-bottom: 50px;
 }
 
 .pinInfo {
@@ -10,23 +11,26 @@
     padding-top: 100px;
     padding-left: 50px;
     width: 500px;
+    line-height: 1.5;
 }
 
 .invisible {
     display: none;
-    width: 0px;
+    width: 500px;
+}
+
+#prompt {
+    text-align: center;
+    color: rgb(187, 187, 187);
+    padding-bottom: 110px;
+    font-size: 14pt;
+    display: none;
 }
 
 .pinName {
-    font-size: 18pt;
-}
-
-.pinCreator {
-    font-size: 9pt;
-}
-
-.pinDate {
-    font-size: 9pt;
+    font-size: 16pt;
+    color: rgb(87, 87, 87);
+    font-weight: 550;
 }
 
 .pinMapID {
@@ -43,4 +47,33 @@
 }
 
 .pinDescription {
+}
+
+#contentContainer {
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.mapDetailsLeft {
+    width: 500px;
+    
+}
+
+.mapDescriptionContainer {
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.mapTitle {
+    font-size: 16pt;
+    color: rgb(87, 87, 87);
+    font-weight: 550;
+}
+
+.mapInfo {
+    display: flex;
+    justify-content: space-evenly;
+    padding-bottom: 60px;
 }

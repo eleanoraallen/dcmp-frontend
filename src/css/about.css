@@ -1,11 +1,28 @@
 #aboutContainer {
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 15%;
+    padding-right: 15%;
+    line-height: 1.5;
+    font-size: 13pt;
+}
+
+.aboutLink {
+    color: rgb(41, 166, 216);
+    text-decoration: none;
+}
+
+.aboutLink:hover {
+    text-decoration: underline;
+}
+
+.aboutParagraph {
+    margin-bottom: 35px;
 }
 
 #aboutTitle {
     font-size: 20pt;
+    display: none;
 }
 
 #aboutContents {
+
 }

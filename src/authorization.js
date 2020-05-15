@@ -1,5 +1,5 @@
 //graphql endpoint (w/ authorization headers)
-const Endpoint = "http://localhost:4000/";
+const Endpoint = "https://dcmp-server.herokuapp.com/";
 const Token = "editing";
 
 export { Token, Endpoint };

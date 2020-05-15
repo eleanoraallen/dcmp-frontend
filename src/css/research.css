@@ -1,0 +1,30 @@
+#researchContainer {
+    padding-left: 15%;
+    padding-right: 15%;
+    line-height: 1.5;
+    font-size: 13pt;
+}
+
+#tryButtonContainer {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 100px;
+}
+
+.tryButton {
+    font-family: "Courier New", Courier, monospace;
+    background-color: rgb(231, 231, 231);
+    width: 450px;
+    height: 50px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 13pt;
+    outline: none;
+    border: none;
+  }
+
+  .tryButton:hover {
+    background-color: rgb(194, 194, 194);
+  }

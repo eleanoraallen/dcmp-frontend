@@ -51,7 +51,7 @@ export default class Archive extends Component {
                     <div id="contentContainer">
                         <Query query={gql(`query { mapList(size: ${this.state.size}, page: ${this.state.page}) {id mapName creatorName createdAt description}}`)}>
                             {({ loading, error, data }) => {
-                                if (loading) return "Loading...";
+                                if (loading) return "";
                                 if (error) return `Error! ${error.message}`;
                                 if (data) {
                                     return <div className="archiveContent">
@@ -74,7 +74,7 @@ export default class Archive extends Component {
                                                         <div className="archiveTitleContainer">{mapName} by {creatorName}</div>
                                                         <div className="archiveDateContainer">{m.createdAt}</div>
                                                         <div className="archiveLinkContainer">
-                                                            <a className="archiveLink" href={`./page=viewmap:${m.id}`}>View Map</a></div>
+                                                            <a className="stdLink" href={`./page=viewmap:${m.id}`}>View Map</a></div>
                                                     </div>
                                                     <div className="archiveRightContainer">{description}</div>
                                                 </div>);

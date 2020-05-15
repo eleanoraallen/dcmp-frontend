@@ -99,10 +99,10 @@ export default class ViewMap extends Component {
   render() {
     return(
       <ApolloProvider client={client}>
-      <div>
+      <div id="contentContainer">
           <Query query={gql(`query { map(id: "${id}") {mapName creatorName createdAt description} }`)}>
             {({ loading, error, data }) => {
-              if (loading) return "Loading...";
+              if (loading) return "";
               if (error) return `Error! ${error.message} --- (Hi this is me. Either you're trying to query a map that doesn't exist or this is my fault. Sorry!)`;
               if (data) {
                 let mapName = 'Unnamed Map';
@@ -118,17 +118,21 @@ export default class ViewMap extends Component {
                     description = data.map.description
                 }
                 return <div className="mapInfo">
-                  <div className="mapTitle">{mapName} by {creatorName}</div>
-                  <div className="mapDetails">Created at: {data.map.createdAt}</div>
-                  <div className="mapDetails">Map ID: {id}</div>
-                  <div className="mapDescription">{description}</div>
+                  <div className="mapDetailsLeft">
+                    <div className="mapTitle">{mapName} by {creatorName}</div>
+                    <div className="mapDetails">Created at: {data.map.createdAt}</div>
+                    <div className="mapDetails">Map ID: {id}</div>
+                  </div>
+                  <div className="mapDescriptionContainer">
+                    <div className="mapDescription">{description}</div>
+                  </div>
                 </div>;
               }
             }}  
           </Query>
           <Query query={gql(`query {pointList(size: 50, query:{ mapId: "${id}"}) {name coordinates {x y} description category otherText} }`)}>
             {({ loading, error, data }) => {
-              if (loading) return "Loading...";
+              if (loading) return "";
               if (error) return `Error! ${error.message}`;
               if (data) {
                 const pins = data.pointList.map(p => {
@@ -142,7 +146,7 @@ export default class ViewMap extends Component {
                     src={process.env.PUBLIC_URL + '/collegeHillMap2.png'} />
                   {pins.map(pin => this.drawPin(pin, pins))}
                 </div>
-                <div className={this.getPinInfoClassName()}>
+                <div className={'pinInfo'}>
                   <div className="pinName">{this.state.pinName}</div>
                   <div className="pinCategory">{this.getCategory()}</div>
                   <div className="pinDescription">{this.state.pinDescription}</div>

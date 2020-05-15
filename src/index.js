@@ -6,6 +6,8 @@ import ViewMap from './components/ViewMap';
 import About from './components/About';
 import Archive from './components/Archive';
 import Home from './components/Home';
+import Research from './components/Research';
+import PageFooter from './components/PageFooter';
 import './css/index.css';
 import './css/webfonts/ingram-mono-regular.css';
 
@@ -32,6 +34,9 @@ function App() {
   if (pageText.includes('about')) {
     pageContent = <About />;
   }
+  if (pageText.includes('research')) {
+    pageContent = <Research />;
+  }
   if (!pageContent) {
     pageContent = <Home />;
   }
@@ -39,7 +44,10 @@ function App() {
   return (
     <div className="App">
       <PageHeader />
-      {pageContent}
+      <div id="pageContentContainer">
+        {pageContent}
+      </div>
+      <PageFooter />
     </div>
   );
 }

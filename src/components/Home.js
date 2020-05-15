@@ -84,7 +84,7 @@ export default class Home extends Component {
         if (this.state.pinName === "") {
             return "invisible";
         } else {
-            return "pinInfo";
+            return "pinLinkContainer";
         }
     }
 
@@ -102,7 +102,8 @@ export default class Home extends Component {
     render() {
         return (
             <ApolloProvider client={client}>
-                <div>
+                <div id="contentContainer">
+                    <div id="prompt">Click on a pin to view it's data...</div>
                     <Query query={gql(`query {pointList(size: 50, query:{ random: true}) {name creatorName coordinates {x y} description category otherText mapId} }`)}>
                         {({ loading, error, data }) => {
                             if (loading) return "Loading...";
@@ -121,13 +122,13 @@ export default class Home extends Component {
                                             src={process.env.PUBLIC_URL + '/collegeHillMap2.png'} />
                                         {pinArray.map(pin => this.drawPin(pin, pinArray))}
                                     </div>
-                                    <div className={this.getPinInfoClassName()}>
+                                    <div className={'pinInfo'}>
                                         <div className="pinName">{this.state.pinName}</div>
                                         <div className="pinCreator">{this.state.pinCreator}</div>
                                         <div className="pinCategory">{this.getCategory()}</div>
                                         <div className="pinDescription">{this.state.pinDescription}</div>
-                                        <div className="pinLinkContainer">
-                                            Original Map: <a className="pinLink" href={`./page=viewmap:${this.state.pinMapId}`}>{`id:${this.state.pinMapId}`}</a>
+                                        <div className={this.getPinInfoClassName()}>
+                                            Original Map: <a className="stdLink" href={`./page=viewmap:${this.state.pinMapId}`}>{`id:${this.state.pinMapId}`}</a>
                                         </div>
                                     </div>
                                 </div>;

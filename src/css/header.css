@@ -1,7 +1,7 @@
 #headerContainer {
   background-color: rgb(132, 188, 226);
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 110px;
   
 }
 
@@ -12,7 +12,7 @@ a {
 }
 
 #headerTitle {
-  padding-top: 20px;
+  padding-top: 30px;
   font-size: 24pt;
   padding-bottom: 30px;
 }
@@ -20,7 +20,7 @@ a {
 #headerLinks {
   width: 100%;
   font-size: 14pt;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 }
 .headerLink {
   padding-right: 50px;

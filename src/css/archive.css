@@ -1,3 +1,42 @@
-.archiveLink {
-    color: blue;
+.archiveContent {
+    padding-left: 10%;
+    padding-right: 10%;
+    line-height: 1.5;
+}
+
+.archiveEntryContainer {
+    display: flex;
+    justify-content: row;
+    width: 100%;
+    padding-bottom: 30px; 
+}
+
+.archiveTitleContainer {
+    font-size: 13pt;
+    font-weight: 550;
+    color: rgb(87, 87, 87);
+}
+
+.archiveRightContainer {
+    display: none;
+}
+
+.archiveButtonContainer {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.archiveButton {
+    background-color: rgb(255, 255, 255);
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12pt;
+    margin-left: 20px;
+    margin-right: 20px;
+    outline: none;
+    border: none;
+}
+
+.archiveButton:hover {
+    text-decoration: underline;
 }

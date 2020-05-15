@@ -25,3 +25,142 @@
   display: flex;
   justify-content: center;
 }
+
+#mapInfoContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#textareaContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.topInput {
+  margin-right: 5vh;
+  margin-left: 5vh;
+  padding-left: 2px;
+  background-color: rgb(238, 238, 238);
+  width: 350px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: hidden;
+  outline: none;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  color: black;
+  font-size: 13pt;
+  margin-bottom: 40px;
+}
+
+#mapDescriptionField {
+  background-color: rgb(238, 238, 238);
+    width: 700px;
+    height: 195px;
+    resize: none;
+    padding-left: 5px;
+    padding-top: 5px;
+    margin-left: 5vh;
+    margin-right: 5vh;
+    padding-right: 10vh;
+    border: hidden;
+    outline: none;
+    text-align: left;
+    vertical-align: top;
+    font-family: "Courier New", Courier, monospace;
+    color: black;
+    font-size: 13pt;
+    margin-bottom: 60px;
+}
+
+#editPin {
+  padding-top: 40px;
+}
+
+.editPinInput {
+  margin-right: 5vh;
+  margin-left: 5vh;
+  padding-left: 2px;
+  background-color: rgb(238, 238, 238);
+  width: 600px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: hidden;
+  outline: none;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  color: black;
+  font-size: 13pt;
+  margin-bottom: 40px;
+
+}
+
+.editPinField {
+  margin-right: 5vh;
+  margin-left: 5vh;
+  padding-left: 2px;
+  background-color: rgb(238, 238, 238);
+  width: 600px;
+  height: 150px;
+  resize: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: hidden;
+  outline: none;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  color: black;
+  font-size: 13pt;
+  margin-bottom: 40px;
+}
+
+#pinTag {
+  font-family: "Courier New", Courier, monospace;
+  margin-right: 5vh;
+  margin-left: 5vh;
+  padding-left: 2px;
+  background-color: rgb(238, 238, 238);
+  width: 600px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: hidden;
+  outline: none;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  color: black;
+  font-size: 13pt;
+  margin-bottom: 40px;
+}
+
+.descriptionOption {
+  color: rgb(190, 190, 190);
+}
+
+.bottomButton {
+  font-family: "Courier New", Courier, monospace;
+    background-color: rgb(238, 238, 238);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 13pt;
+    outline: none;
+    border: none;
+
+}
+
+.editPinButtonsContainer {
+  display: flex;
+  justify-content: space-evenly;
+  padding-bottom: 40px;
+}
+
+.bottomButton:hover {
+  background-color: rgb(211, 211, 211);
+}
+
+
+.saveMapButton {
+
+}

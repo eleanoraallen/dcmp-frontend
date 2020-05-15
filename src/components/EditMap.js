@@ -278,14 +278,16 @@ export default class EditMap extends Component {
       <div id="editCreator">
         <div id="mapInfoContainer">
           <div id="mapInputs">
-            <input id="mapNameInput" type="text" autoComplete="off"
+            <input id="mapNameInput" type="text" className="topInput" autoComplete="off"
               placeholder="Name of your map (optional)" onChange={this.handleMapNameChange.bind(this)}></input>
-            <input id="creatorNameInput" type="text" autoComplete="off"
-              placeholder="Your name/handle (optional)" onChange={this.handleMapCreatorChange.bind(this)}></input>
+            <input id="creatorNameInput" type="text" className="topInput" autoComplete="off"
+              placeholder="Your name (optional)" onChange={this.handleMapCreatorChange.bind(this)}></input>
           </div>
+          <div id="textAreaContainer">
           <textarea id="mapDescriptionField" autoComplete="off"
             placeholder="A description of your map (optional)" onChange={this.handleMapDescriptionChange.bind(this)}></textarea>
         </div>
+          </div>
       </div>
       <div id="editMapContainer">
         <div id="mapImageContainer">
@@ -303,7 +305,7 @@ export default class EditMap extends Component {
             <input className="editPinInput" type="text" required autoComplete="off" placeholder="Name of this point" value={this.state.editName} onChange={this.handleNameChange.bind(this)} />
           </div>
           <div className="editPinDescriptionContainer">
-            <textarea className="editPinInput" autoComplete="off" placeholder="Description of this point (optional)" type="text" value={this.state.editDescription} onChange={this.handleDescriptionChange.bind(this)} />
+            <textarea className="editPinField" autoComplete="off" placeholder="Description of this point (optional)" type="text" value={this.state.editDescription} onChange={this.handleDescriptionChange.bind(this)} />
           </div>
           <div className="editPinTagContainer">
             <select id="pinTag" onChange={this.handleTagChange.bind(this)}>
@@ -322,8 +324,8 @@ export default class EditMap extends Component {
             placeholder="Category name (optional)" value={this.state.editOtherText} onChange={this.handleOtherTextChange.bind(this)} />
           </div>
           <div className="editPinButtonsContainer">
-            <button className="removePinButton" onClick={this.handleRemovePin.bind(this)}>Remove Pin</button>
-            <button className="savePinButton" onClick={this.handleEditSubmit.bind(this)}>Save Pin</button>
+            <button className="removePinButton bottomButton" onClick={this.handleRemovePin.bind(this)}>Remove Pin</button>
+            <button className="savePinButton bottomButton" onClick={this.handleEditSubmit.bind(this)}>Save Pin</button>
           </div>
         </div>
       </div>
@@ -332,7 +334,7 @@ export default class EditMap extends Component {
         <Mutation mutation={this.handleMapSave()}>
           {(saveMap, { data, error }) => (
             <div id="saveMap">
-              <button className={this.getSaveButtonClass()} onClick={e => {
+              <button className={`${this.getSaveButtonClass()} bottomButton`} onClick={e => {
                 if (editPinKey === "" && mapPins.length > 0) {
                   e.preventDefault();
                   this.setState({ written: true });

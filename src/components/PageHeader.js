@@ -3,7 +3,7 @@ import '../css/header.css';
 
 
 // Component class
-export default class EditMap extends Component {
+export default class PageHeader extends Component {
   constructor(props) {
     super(props);
     };
@@ -15,7 +15,7 @@ export default class EditMap extends Component {
       <a href="./page=about" className="headerLink">About</a>
         <a href="./page=editmap" className="headerLink">Contribute a Map</a>
         <a href="./page=archive" className="headerLink">Map Archive</a>
-        <a href="./page=archive" className="headerLink">Research</a>
+        <a href="./page=research" className="headerLink">Research</a>
       </div>
     </div>;
   }
