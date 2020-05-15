@@ -14,6 +14,7 @@
 
 .invisible {
     display: none;
+    width: 0px;
 }
 
 .pinName {

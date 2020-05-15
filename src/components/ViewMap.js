@@ -1,91 +1,158 @@
 import React, { Component } from 'react';
+import { ApolloClient } from 'apollo-boost';
+import { HttpLink } from 'apollo-link-http';
+import { ApolloProvider, Query } from 'react-apollo';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { setContext } from 'apollo-link-context';
+import { Token, Endpoint } from '../authorization';
+import gql from "graphql-tag";
 import '../css/viewmap.css';
+
+// Setup Client
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      authorization: Token ? `${Token}` : ''
+    },
+  };
+});
+const clientCache = new InMemoryCache();
+const clientLink = new HttpLink({
+  uri: Endpoint,
+});
+const client = new ApolloClient({
+  cache: clientCache,
+  link: authLink.concat(clientLink),
+});
 
 // internal pin class
 class Pin {
-  constructor(x, y, name, description, creator, date, mapID) {
+  constructor(x, y, name, description, category, otherText) {
     this.key = `pin:x${String(x)},y${String(y)}`;
     this.x = x;
     this.y = y;
     this.name = name;
     this.description = description;
-    this.creator = creator;
-    this.date = date;
-    this.mapID = mapID;
+    this.category = category;
+    this.otherText = otherText
   }
 }
 
-const p1 = new Pin(700, 300, "Pin1", "This is a test description test test test!", "nunya business", '4/17/1995', "000001");
-const p2 = new Pin(200, 300, "Pin2", "In hindsight I should have made these more helpfull...", "nunya business", '4/17/1995', "000001");
-const p3 = new Pin(700, 400, "Pin3", "ABC easy as 123", "an entierly different person", '4/17/2075', "000002");
-const p4 = new Pin(800, 800, "Pin4", "This is also a test description test test test!", "nunya business", '4/17/1995', "000001");
-const p5 = new Pin(300, 500, "Pin5", "Simple as doe re me, ABC, 123 baby you and me!", "an entierly different person", '4/17/2075', "000002");
-
-let mapPins = [p1, p2, p3, p4, p5];
+const id = window.location.href.split('viewmap:')[1];
 
 // Component class
 export default class ViewMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        pinName: "",
-        pinDescription: "",
-        pinCreator: "",
-        pinDate: "",
-        pinMapID: "",
+      pinName: "",
+      pinDescription: "",
+      pinCategory: "",
+      pinOtherText: "",
     };
   }
 
   /**
    * Draws a given pin to the map
    * @param pin<Pin>The pin to be drawn
+   * @param pins<[Pin]>all of the pins!
    */
-  drawPin(pin) {
+  drawPin(pin, pins) {
     return <div key={pin.key}
-        className="mapPin" 
-        style={{ left: String(pin.x - 6) + "px", top: String(pin.y - 6) + "px", }}>
-            <button className="mapPinMarker" 
-            onClick={() => { 
-                mapPins.forEach(p => {
-                    if (p.key === pin.key) { 
-                        this.setState({pinName: p.name}); 
-                        this.setState({pinDescription: p.description});
-                        this.setState({pinCreator: "By: " + p.creator}); 
-                        this.setState({pinDate: "Created On: " + p.date.toString()});
-                        this.setState({pinMapID: p.mapID});
-                    }
-                }); 
-            }} />
-        <div className="mapPinName">{pin.name}</div>
-      </div>;
+      className="mapPin"
+      style={{ left: String(pin.x - 6) + "px", top: String(pin.y - 6) + "px", }}>
+      <button className="mapPinMarker"
+        onClick={() => {
+          pins.forEach(p => {
+            if (p.key === pin.key) {
+              this.setState({ pinName: p.name });
+              this.setState({ pinDescription: p.description });
+              this.setState({ pinCategory: p.category });
+              this.setState({ pinOtherText: p.otherText });
+            }
+          });
+        }} />
+      <div className="mapPinName">{pin.name}</div>
+    </div>;
   }
 
   getPinInfoClassName() {
-      if (this.state.pinName === "") {
-          return "invisible";
-      } else {
-          return "pinInfo";
-      }
+    if (this.state.pinName === "") {
+      return "invisible";
+    } else {
+      return "pinInfo";
+    }
+  }
+
+  getCategory() {
+    if (this.state.pinOtherText !== '' && this.state.pinCategory === 'OTHER') {
+      return this.state.pinOtherText;
+    } else {
+      return this.state.pinCategory;
+    }
   }
 
   /**
    * renders the component
    */
   render() {
-    return <div id="viewMapContainer">
-      <div id="mapImageContainer">
-        <img id="mapImage"
-          alt="a map"
-          src={process.env.PUBLIC_URL + '/collegeHillMap2.png'} />
-        {mapPins.map(pin => this.drawPin(pin))}
-      </div>
-      <div className={this.getPinInfoClassName()}>
-        <div className="pinName">{this.state.pinName}</div>
-        <div className="pinCreator">{this.state.pinCreator}</div>
-        <div className="pinDate">{this.state.pinDate}</div>
-        <div className="pinMapID"><a id="mapLink" href={`./viewmap:${this.state.pinMapID}`}>Original Map: {this.state.pinMapID}</a></div>
-        <div className="pinDescription">{this.state.pinDescription}</div>
-      </div>
-    </div>;
+    return(
+      <ApolloProvider client={client}>
+      <div>
+          <Query query={gql(`query { map(id: "${id}") {mapName creatorName createdAt description} }`)}>
+            {({ loading, error, data }) => {
+              if (loading) return "Loading...";
+              if (error) return `Error! ${error.message} --- (Hi this is me. Either you're trying to query a map that doesn't exist or this is my fault. Sorry!)`;
+              if (data) {
+                let mapName = 'Unnamed Map';
+                let creatorName = 'Anonymous Creator';
+                let description = '';
+                if (data.map.mapName !== null) {
+                    mapName = data.map.mapName
+                }
+                if (data.map.creatorName !== null) {
+                    creatorName = data.map.creatorName
+                }
+                if (data.map.description !== null) {
+                    description = data.map.description
+                }
+                return <div className="mapInfo">
+                  <div className="mapTitle">{mapName} by {creatorName}</div>
+                  <div className="mapDetails">Created at: {data.map.createdAt}</div>
+                  <div className="mapDetails">Map ID: {id}</div>
+                  <div className="mapDescription">{description}</div>
+                </div>;
+              }
+            }}  
+          </Query>
+          <Query query={gql(`query {pointList(size: 50, query:{ mapId: "${id}"}) {name coordinates {x y} description category otherText} }`)}>
+            {({ loading, error, data }) => {
+              if (loading) return "Loading...";
+              if (error) return `Error! ${error.message}`;
+              if (data) {
+                const pins = data.pointList.map(p => {
+                  let pin = new Pin(p.coordinates.x, p.coordinates.y, p.name, p.description, p.category, p.otherText);
+                  return pin;
+                });
+                return <div id="viewMapContainer">
+                <div id="mapImageContainer">
+                  <img id="mapImage"
+                    alt="a map"
+                    src={process.env.PUBLIC_URL + '/collegeHillMap2.png'} />
+                  {pins.map(pin => this.drawPin(pin, pins))}
+                </div>
+                <div className={this.getPinInfoClassName()}>
+                  <div className="pinName">{this.state.pinName}</div>
+                  <div className="pinCategory">{this.getCategory()}</div>
+                  <div className="pinDescription">{this.state.pinDescription}</div>
+                </div>
+              </div>;
+              }
+            }}  
+          </Query>
+        </div>
+    </ApolloProvider>
+    );
   }
 }

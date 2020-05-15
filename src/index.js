@@ -4,6 +4,8 @@ import PageHeader from './components/PageHeader';
 import EditMap from './components/EditMap';
 import ViewMap from './components/ViewMap';
 import About from './components/About';
+import Archive from './components/Archive';
+import Home from './components/Home';
 import './css/index.css';
 import './css/webfonts/ingram-mono-regular.css';
 
@@ -19,23 +21,19 @@ function App() {
   // determine what to render
   let pageContent;
   if (pageText.includes('viewmap:')) {
-    let input = '';
-    if (pageText.split('viewmap:')[1].length > 1) {
-      input = pageText.split('viewmap:')[1];
-    }
-    pageContent = <ViewMap id={input} />;
+    pageContent = <ViewMap />;
   }
   if (pageText.includes('editmap')) {
     pageContent = <EditMap />;
   }
   if (pageText.includes('archive')) {
-    pageContent = <div>ARCHIVE</div>;
+    pageContent = <Archive />;
   }
   if (pageText.includes('about')) {
     pageContent = <About />;
   }
   if (!pageContent) {
-    pageContent = <ViewMap id="rand"/>;
+    pageContent = <Home />;
   }
 
   return (

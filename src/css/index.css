@@ -18,11 +18,11 @@ code {
 
 #mapImageContainer {
   position: relative;
-  width: 1000px;
+  width: 700px;
 }
 
 #mapImage {
-  width: 1000px;
+  width: 700px;
 }
 
 .mapPin {
