@@ -66,7 +66,7 @@ export default class EditMap extends Component {
       mapDescription: "",
       editName: "",
       editDescription: "",
-      editTag: "",
+      editTag: "none",
       editOtherText: "",
       written: false,
       mapFile: 'line_map.png',
@@ -87,7 +87,7 @@ export default class EditMap extends Component {
    * @param e<event>click event
    */
   onClick(e) {
-    if (editPinKey === '' && !this.state.written && mapPins.length < 51) {
+    if (editPinKey === '' && !(this.state.written) && mapPins.length < 51) {
       let newPin = new Pin(this.state.x, this.state.y);
       mapPins.push(newPin);
       editPinKey = newPin.key;
@@ -109,8 +109,7 @@ export default class EditMap extends Component {
             editPinKey = pin.key;
             mapPins.forEach(p => {
               if (p.key === editPinKey && mapPins.length > 0 && !this.state.written) {
-                this.setState({ editName: p.name });
-                this.setState({ written: true });
+                this.setState({ editName: p.name, editDescription: p.description, editTag: p.category, editOtherText: p.otherText});
               }
             });
           }
@@ -321,14 +320,15 @@ export default class EditMap extends Component {
             <textarea className="editPinField" autoComplete="off" placeholder="Description of this point (optional)" type="text" value={this.state.editDescription} onChange={this.handleDescriptionChange.bind(this)} />
           </div>
           <div className="editPinTagContainer">
-            <select id="pinTag" onChange={this.handleTagChange.bind(this)}>
+            <select id="pinTag" value={this.state.editTag} onChange={this.handleTagChange.bind(this)}>
               <option value="none" className="descriptionOption">Category of this point (optional)</option>
               <option value="ART">Art</option>
+              <option value="BUISNESS">Buisness</option>
+              <option value="LANDMARK">Landmark</option>
               <option value="MONUMENT">Monument</option>
               <option value="PUBLICSPACE">Public Space or Building</option>
               <option value="RESIDENCE">Residence</option>
               <option value="SCHOOL">School or Educational Institution</option>
-              <option value="BUISNESS">Shop or other Buisness</option>
               <option value="WORKPLACE">Workplace</option>
               <option value="OTHER">Other</option>
             </select>
@@ -358,8 +358,8 @@ export default class EditMap extends Component {
                 Save Map</button>
               <div className="saveMessage">
                 {this.printSavePreface()}
-                <a class="stdLink" href={("./?page=viewmap:" + JSON.stringify(data)).replace('undefined', '').replace('{"saveMap":"', '').replace('"}', '')}
-                  className="saveLink"> {("" + JSON.stringify(data)).replace('undefined', '').replace('{"saveMap":"', '').replace('"}', '')}</a>
+                <a className="stdLink" href={("./?page=viewmap:" + JSON.stringify(data)).replace('undefined', '').replace('{"saveMap":"', '').replace('"}', '')}> 
+                {("" + JSON.stringify(data)).replace('undefined', '').replace('{"saveMap":"', '').replace('"}', '')} </a>
                 {this.printSaveSuffex()}
               </div>
             </div>
