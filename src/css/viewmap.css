@@ -9,14 +9,13 @@
     display: flex;
     flex-direction: column;
     padding-top: 100px;
-    padding-left: 50px;
+    padding-left: 60px;
     width: 500px;
     line-height: 1.5;
 }
 
 .invisible {
     display: none;
-    width: 500px;
 }
 
 #prompt {

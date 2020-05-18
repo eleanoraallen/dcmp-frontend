@@ -74,7 +74,7 @@ export default class Archive extends Component {
                                                         <div className="archiveTitleContainer">{mapName} by {creatorName}</div>
                                                         <div className="archiveDateContainer">{m.createdAt}</div>
                                                         <div className="archiveLinkContainer">
-                                                            <a className="stdLink" href={`./page=viewmap:${m.id}`}>View Map</a></div>
+                                                            <a className="stdLink" href={`./?page=viewmap:${m.id}`}>View Map</a></div>
                                                     </div>
                                                     <div className="archiveRightContainer">{description}</div>
                                                 </div>);

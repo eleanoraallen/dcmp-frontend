@@ -142,11 +142,11 @@ export default class ViewMap extends Component {
                 return <div id="viewMapContainer">
                 <div id="mapImageContainer">
                   <img id="mapImage"
-                    alt="a map"
-                    src={process.env.PUBLIC_URL + '/collegeHillMap2.png'} />
+                    alt="a map of the college hill area"
+                    src={process.env.PUBLIC_URL + '/line_map.png'} />
                   {pins.map(pin => this.drawPin(pin, pins))}
                 </div>
-                <div className={'pinInfo'}>
+                <div className={this.getPinInfoClassName()}>
                   <div className="pinName">{this.state.pinName}</div>
                   <div className="pinCategory">{this.getCategory()}</div>
                   <div className="pinDescription">{this.state.pinDescription}</div>

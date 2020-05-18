@@ -84,7 +84,7 @@ export default class Home extends Component {
         if (this.state.pinName === "") {
             return "invisible";
         } else {
-            return "pinLinkContainer";
+            return "pinInfo";
         }
     }
 
@@ -118,17 +118,17 @@ export default class Home extends Component {
                                 return <div id="viewMapContainer">
                                     <div id="mapImageContainer">
                                         <img id="mapImage"
-                                            alt="a map"
-                                            src={process.env.PUBLIC_URL + '/collegeHillMap2.png'} />
+                                            alt="a map of the college hill area"
+                                            src={process.env.PUBLIC_URL + '/line_map.png'} />
                                         {pinArray.map(pin => this.drawPin(pin, pinArray))}
                                     </div>
-                                    <div className={'pinInfo'}>
+                                    <div className={this.getPinInfoClassName()}>
                                         <div className="pinName">{this.state.pinName}</div>
                                         <div className="pinCreator">{this.state.pinCreator}</div>
                                         <div className="pinCategory">{this.getCategory()}</div>
                                         <div className="pinDescription">{this.state.pinDescription}</div>
-                                        <div className={this.getPinInfoClassName()}>
-                                            Original Map: <a className="stdLink" href={`./page=viewmap:${this.state.pinMapId}`}>{`id:${this.state.pinMapId}`}</a>
+                                        <div className={"pinLinkContainer"}>
+                                            Original Map: <a className="stdLink" href={`./?page=viewmap:${this.state.pinMapId}`}>{`id:${this.state.pinMapId}`}</a>
                                         </div>
                                     </div>
                                 </div>;

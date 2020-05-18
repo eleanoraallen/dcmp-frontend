@@ -69,6 +69,7 @@ export default class EditMap extends Component {
       editTag: "",
       editOtherText: "",
       written: false,
+      mapFile: 'line_map.png',
     };
   }
 
@@ -270,6 +271,15 @@ export default class EditMap extends Component {
     }
   }
 
+  toggleMapFile() {
+    if (this.state.mapFile === 'line_map.png') {
+      this.setState({ mapFile: 'fill_map.png' });
+    } else {
+      this.setState({ mapFile: 'line_map.png' });
+    }
+
+  }
+
   /**
    * renders the component
    */
@@ -284,10 +294,13 @@ export default class EditMap extends Component {
               placeholder="Your name (optional)" onChange={this.handleMapCreatorChange.bind(this)}></input>
           </div>
           <div id="textAreaContainer">
-          <textarea id="mapDescriptionField" autoComplete="off"
-            placeholder="A description of your map (optional)" onChange={this.handleMapDescriptionChange.bind(this)}></textarea>
-        </div>
+            <textarea id="mapDescriptionField" autoComplete="off"
+              placeholder="A description of your map (optional)" onChange={this.handleMapDescriptionChange.bind(this)}></textarea>
           </div>
+        </div>
+      </div>
+      <div id="toggleButtonContainer">
+        <button className={"toggleButton"} onClick={() => this.toggleMapFile()}>Toggle Informational Overlay</button>
       </div>
       <div id="editMapContainer">
         <div id="mapImageContainer">
@@ -295,7 +308,7 @@ export default class EditMap extends Component {
             alt="a map"
             onMouseMove={this.onMouseMove.bind(this)}
             onClick={this.onClick.bind(this)}
-            src={process.env.PUBLIC_URL + '/collegeHillMap2.png'} />
+            src={process.env.PUBLIC_URL + this.state.mapFile} />
           {mapPins.map(pin => this.drawPin(pin))}
         </div>
       </div>
@@ -311,6 +324,7 @@ export default class EditMap extends Component {
             <select id="pinTag" onChange={this.handleTagChange.bind(this)}>
               <option value="none" className="descriptionOption">Category of this point (optional)</option>
               <option value="ART">Art</option>
+              <option value="MONUMENT">Monument</option>
               <option value="PUBLICSPACE">Public Space or Building</option>
               <option value="RESIDENCE">Residence</option>
               <option value="SCHOOL">School or Educational Institution</option>
@@ -320,8 +334,8 @@ export default class EditMap extends Component {
             </select>
           </div>
           <div className={this.getOTClass()}>
-            <input className="editPinInput" type="text" autoComplete="off" 
-            placeholder="Category name (optional)" value={this.state.editOtherText} onChange={this.handleOtherTextChange.bind(this)} />
+            <input className="editPinInput" type="text" autoComplete="off"
+              placeholder="Category name (optional)" value={this.state.editOtherText} onChange={this.handleOtherTextChange.bind(this)} />
           </div>
           <div className="editPinButtonsContainer">
             <button className="removePinButton bottomButton" onClick={this.handleRemovePin.bind(this)}>Remove Pin</button>
@@ -344,8 +358,8 @@ export default class EditMap extends Component {
                 Save Map</button>
               <div className="saveMessage">
                 {this.printSavePreface()}
-                <a href={("./viewmap:" + JSON.stringify(data)).replace('undefined', '').replace('{"saveMap":"', '').replace('"}', '')} 
-                className="saveLink"> {("" + JSON.stringify(data)).replace('undefined', '').replace('{"saveMap":"', '').replace('"}', '')}</a>
+                <a class="stdLink" href={("./?page=viewmap:" + JSON.stringify(data)).replace('undefined', '').replace('{"saveMap":"', '').replace('"}', '')}
+                  className="saveLink"> {("" + JSON.stringify(data)).replace('undefined', '').replace('{"saveMap":"', '').replace('"}', '')}</a>
                 {this.printSaveSuffex()}
               </div>
             </div>

@@ -5,6 +5,10 @@
     width: 100%;
 }
 
+#mapImageContainer {
+  padding-bottom: 20px;
+}
+
 #contentContainer {
   display: flex;
   flex-direction: column;
@@ -160,7 +164,28 @@
   background-color: rgb(211, 211, 211);
 }
 
-
 .saveMapButton {
+  margin-bottom: 20px;
+}
 
+#toggleButtonContainer {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 60px;
+}
+
+.toggleButton {
+  font-family: "Courier New", Courier, monospace;
+    background-color: rgb(238, 238, 238);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 12pt;
+    outline: none;
+    border: none;
+}
+
+.toggleButton:hover {
+  background-color: rgb(211, 211, 211);
 }
