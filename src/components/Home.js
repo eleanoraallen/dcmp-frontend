@@ -128,7 +128,7 @@ export default class Home extends Component {
                                         <div className="pinCategory">{this.getCategory()}</div>
                                         <div className="pinDescription">{this.state.pinDescription}</div>
                                         <div className={"pinLinkContainer"}>
-                                            Original Map: <a className="stdLink" href={`./?page=viewmap:${this.state.pinMapId}`}>{`id:${this.state.pinMapId}`}</a>
+                                            Original Map: <a className="stdLink" href={`./?page=viewmap:${this.state.pinMapId}`}>{this.state.pinMapId}</a>
                                         </div>
                                     </div>
                                 </div>;
