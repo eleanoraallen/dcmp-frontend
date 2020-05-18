@@ -1,0 +1,6 @@
+ARCHIVE SEARCH/EDIT
+HOME REFRESH/EDIT
+SMOOTH CSS
+zoom in/out on maps
+just make the editmap ui better, it's not great.
+historical map overlay?
